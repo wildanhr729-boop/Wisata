@@ -1,59 +1,42 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+🌤️ Cuaca Kalimantan Tengah
+Aplikasi berbasis Flutter untuk melihat prakiraan cuaca saat ini di beberapa kabupaten dan kota yang terletak di Provinsi Kalimantan Tengah. Proyek ini dibuat untuk memenuhi tugas dokumentasi fungsionalitas aplikasi.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+📍 Deskripsi & Fungsi Aplikasi
+Aplikasi ini dirancang untuk memberikan informasi cuaca yang ringkas, cepat, dan akurat secara real-time. Pengguna dapat memilih lokasi kabupaten/kota yang diinginkan, lalu aplikasi secara otomatis menarik data cuaca terkini menggunakan layanan pihak ketiga.
 
-## About Laravel
+🔹 Fitur Utama
+Pilihan Lokasi Kalteng: Mendukung pengecekan lokasi untuk Palangkaraya, Sampit, Pangkalan Bun, Muara Teweh, Kuala Kapuas, Buntok, dan Puruk Cahu.
+Default Load: Memuat data cuaca kota Palangkaraya secara otomatis saat aplikasi pertama kali dibuka.
+Informasi Cuaca Real-Time: Menampilkan info suhu saat ini, kecepatan angin, dan kode status kondisi cuaca.
+State Indicator: Menampilkan indikator loading saat data sedang dimuat serta pesan error yang jelas ketika permintaan data ke API gagal.
+🏗️ Arsitektur & Alur Kerja Sistem
+Sistem berjalan dengan memanfaatkan koordinat lintang (latitude) dan bujur (longitude) dari masing-masing kota untuk meminta data cuaca dari server eksternal:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi Flutter │ permintaan HTTP 
+                 ▼ 
+       Open-Meteo Forecast API 
+                 │ respons JSON 
+                 ▼ 
+      CurrentWeather.fromJson() 
+                 │ 
+                 ▼ 
+     Tampilan cuaca di aplikasi
+KaltengCity: Berfungsi menyimpan data nama kota beserta koordinat geografisnya.
+CurrentWeather: Berfungsi melakukan parsing atau mengubah respons format JSON dari API menjadi objek data yang siap ditampilkan pada antarmuka (UI) aplikasi.
+📂 Struktur Folder Proyek
+weather_kalteng/
+├── android/          # Konfigurasi aplikasi untuk platform Android
+├── ios/              # Konfigurasi aplikasi untuk platform iOS
+├── lib/
+│   ├── main.dart         # Aplikasi utama, daftar kota, dan kode UI
+│   └── weather_model.dart # Model data untuk objek kota dan cuaca
+├── pubspec.yaml      # Dependensi library dan konfigurasi Flutter
+└── README.md         # Dokumentasi proyek
+💻 Panduan Menjalankan Aplikasi
+Pastikan laptop Anda sudah terinstal Flutter SDK dan perangkat (emulator/HP fisik) terhubung ke internet untuk mengambil data dari Open-Meteo. Jalankan perintah berikut di terminal:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Mengambil semua dependensi/library yang diperlukan
+flutter pub get
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Menjalankan aplikasi ke perangkat atau emulator Anda
+flutter run
